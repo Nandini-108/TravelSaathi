@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>THIS IS THE HOMEPAGE OF TRAVELSAATHI</p>
+    <p>{{tree}}</p>
+    <p>{{my_list}}</p>
+    <ul>
+        {% for t in tours %} 
+        <li>{{t.start_dest}}</li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
+    
