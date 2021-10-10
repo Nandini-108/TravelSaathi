@@ -1,13 +1,29 @@
-{% extends 'base.html' %}
+{% extends 'tour/base.html' %}
+{% block extra_head %}
+<style>
+    img{
+        width: 50vw;
+        height: 500px;
+    }
+</style>
+{% endblock extra_head %}
+
 
 {% block content %}
-<p>THIS IS THE HOMEPAGE OF TRAVELSAATHI</p>
-    <p>{{tree}}</p>
-    <p>{{my_list}}</p>
-    <ul>
-        {% for t in tours %} 
-        <li>{{t.start_dest}}</li>
-        {% endfor %}
-    </ul>
+<div class="row">
+    {% for tour in tours %}
+    <div class="col-lg-6">
+        <img class="thumbnail" src="{{tour.imageURL}}">
+        <div class="box-element product">
+            <h6><strong>{{tour.tour_title}}</strong></h6>
+            <hr>
+            <button data-product={{tour.id}} data-action="add" 
+                class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+            <h4 style="display: inline-block;"><strong>${{tour.price}}</strong></h4>
+    
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock content %}
     

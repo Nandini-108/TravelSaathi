@@ -8,3 +8,7 @@ def tour_list(request):
         "my_list": [1,2,3]
     }
     return render(request, 'tour/tour_list.html', context)
+
+def home(request):
+       context = {}
+       return render(request, 'tour/home.html', context)
