@@ -3,9 +3,9 @@ from django.db import models
 from django.utils import timezone
 
 
-# class UserProfile(models.Model):
-#     user = models.OneToOneField(
-#         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+class UserProfile(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 class StartDest(models.Model):
     start_dest=models.CharField(max_length=20)
