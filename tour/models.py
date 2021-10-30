@@ -1,11 +1,16 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+class Customer(models.Model):
+    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+    name=models.CharField(max_length=2000, null=True)
+    email=models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
 
 class StartDest(models.Model):
     start_dest=models.CharField(max_length=20)
@@ -32,12 +37,35 @@ class Tour_package(models.Model):
             url = ''
         return url                
 
-    
 class Order(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
-    tour_title = models.ForeignKey(Tour_package, on_delete=models.CASCADE)
-    guests = models.IntegerField(default=1)
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
+    complete=models.BooleanField(default=False)  
+    transaction_id=models.CharField(max_length=100,null=True) 
+
+    def __str__(self):
+        return str(self.id) 
+    @property
+    def get_cart_total(self):
+        orderitems=self.orderitem_set.all()
+        total=sum([item.get_total for item in orderitems])
+        return total
+    @property
+    def get_cart_items(self):
+        orderitems=self.orderitem_set.all()
+        total=sum([item.guests for item in orderitems])
+        return total
+
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL,null=True)
+    tour = models.ForeignKey(Tour_package, on_delete=models.SET_NULL, null=True)
+    guests = models.IntegerField(default=0, null=True, blank=True)
+
+    @property
+    def get_total(self):
+        total=self.tour.price * self.guests
+        return total
 
 
 

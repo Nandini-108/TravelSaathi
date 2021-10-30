@@ -1,2 +1,65 @@
 {% extends 'tour/base.html' %}
 {% load static %}
+{% block extra_head %}
+<style>
+	.quantity{
+		display: inline-block;
+	font-weight: 700;
+	padding-right:10px;
+	}
+</style>
+{% endblock extra_head %}
+{% block content %}
+<div class="container-fluid">
+    <div class="border rounder p-4 m-4">
+        <p class="text-center display-4">
+            Your Order
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sno.</th>
+                    <th>Image</th>
+                    <th>Tour Package</th>
+                    <th>Price</th>
+                    <th>Guests</th>
+                    <th>Total</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><img style="width:100px;" class="border" src="{{item.tour.imageURL}}" alt=""></td>
+                    <td>{{item.tour.tour_title}}</td>
+                    <td><span>&#8377;</span>{{item.tour.price}}</td>
+                    <td>
+						{{item.guests}}
+						<div class="quantity"><a href="/cart">
+							<img style="width: 15px;" data-product={{item.tour.id}} data-action="add" class="chg-quantity update-cart" src="{% static  'images/arrow-up.png' %}">
+					
+							<img style="width: 15px;" data-product={{item.tour.id}} data-action="remove" class="chg-quantity update-cart"  src="{% static  'images/arrow-down.png' %}">
+						</a></div>
+					</td>
+                    <td><span>&#8377;</span>{{item.get_total}}</td>                    
+                </tr>  
+                {% endfor %} 
+            </tbody> 
+            <tfoot>
+                 <tr>
+                     <th colspan="5">Total</th>
+                    <th class=""><span>&#8377;</span>{{order.get_cart_total}}</th>
+                </tr>
+            </tfoot>
+                       
+        </table>
+        <hr>
+            <div class="m-3 p-3">
+                <a href="#" class="btn btn-info border rounded col-lg-1 float-right ">Checkout</a>
+            </div>
+        
+
+	</div>
+</div>
+{% endblock content %}
