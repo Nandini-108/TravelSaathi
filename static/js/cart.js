@@ -6,6 +6,7 @@ for (i = 0; i < updateBtns.length; i++) {
 		var action = this.dataset.action		
 		console.log('USER:', user)
 		if(user== 'AnonymousUser'){
+			addCookieItem(productId, action)
 			console.log('Not logged in')
 		}
 		else{
@@ -28,3 +29,4 @@ function updateUserOrder(productId, action){
 		body:JSON.stringify({'productId':productId, 'action': action})
 	})
 }
+

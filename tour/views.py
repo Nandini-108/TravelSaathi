@@ -3,6 +3,7 @@ from .models import StartDest, Tour_package, Order
 from .models import *
 from django.http import JsonResponse
 import json
+import datetime
 # Create your views here.
 def tour_list(request):
     context = {
@@ -20,9 +21,11 @@ def cart(request):
         customer= request.user.customer
         order, created= Order.objects.get_or_create(customer=customer, complete= False)
         items= order.orderitem_set.all()
+        
     else:
         items=[] 
-        order = {'get_cart_total': 0}   
+        order = {'get_cart_total': 0} 
+        
     
     context = {'items': items, 'order': order}
     return render(request, 'tour/cart.html', context)  
@@ -51,3 +54,15 @@ def updateItem(request):
     if orderItem.guests <= 0:
     	orderItem.delete()
     return JsonResponse('Item was added', safe=False)
+
+def processOrder(request):
+    transaction_id = datetime.datetime.now().timestamp()
+    data=json.loads(request.body)
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        order.transaction_id = transaction_id
+
+        order.complete = True
+        order.save()
+    return JsonResponse('Processed',safe=False)
