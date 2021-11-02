@@ -4,13 +4,13 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
-class Customer(models.Model):
-    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
-    name=models.CharField(max_length=2000, null=True)
-    email=models.CharField(max_length=200)
+# class Customer(models.Model):
+#     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
+#     name=models.CharField(max_length=2000, null=True)
+#     email=models.CharField(max_length=200)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 class StartDest(models.Model):
     start_dest=models.CharField(max_length=20)
@@ -38,7 +38,7 @@ class Tour_package(models.Model):
         return url                
 
 class Order(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
+    customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     complete=models.BooleanField(default=False)  
     transaction_id=models.CharField(max_length=100,null=True) 
 

@@ -18,7 +18,7 @@ def home(request):
 
 def cart(request):
     if request.user.is_authenticated:
-        customer= request.user.customer
+        customer= request.user
         order, created= Order.objects.get_or_create(customer=customer, complete= False)
         items= order.orderitem_set.all()
         
@@ -38,7 +38,7 @@ def updateItem(request):
     print('Action:', action)
     print('Product:', productId)
 
-    customer = request.user.customer
+    customer = request.user
     product = Tour_package.objects.get(id=productId)
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
@@ -59,7 +59,7 @@ def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data=json.loads(request.body)
     if request.user.is_authenticated:
-        customer = request.user.customer
+        customer = request.user
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
         order.transaction_id = transaction_id
 
