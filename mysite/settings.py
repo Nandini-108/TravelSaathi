@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'tour.apps.TourConfig',
+    'authapp.apps.AuthappConfig',
 ]
 
 MIDDLEWARE = [
@@ -81,9 +82,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'OPTIONS': {
-            'read_default_file': '/etc/mysql/my.cnf',
-        },
+        'USER': 'kriti',
+        'NAME': 'TravelSaathi'
+       # 'OPTIONS': {
+       #     'read_default_file': '/etc/mysql/my.cnf',
+        #},
     }
 }
 
@@ -142,3 +145,5 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+LOGIN_REDIRECT_URL = 'home'

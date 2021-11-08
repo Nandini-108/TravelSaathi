@@ -45,24 +45,42 @@
         <a class="nav-link" href="/tour_list">Packages</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#">Word Diary</a>
+        <a class="nav-link" href="/word_diary">Word Diary</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#">Travel Diary</a>
+        <a class="nav-link" href="/travel_diary">Travel Diary</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
+      {% if user.is_authenticated %}
       <li class="nav-item active">
-          <a class="nav-link" href="#">Login</a>
+          <a class="nav-link" href="{% url 'profile' %}">Profile</a>
       </li>
       <li class="nav-item active">
-          <a class="nav-link" href="#">Sign Up</a>            
+          <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+      </li>
+
+      {% else %}
+      <li class="nav-item active">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+      <li class="nav-item active">
+          <a class="nav-link" href="{% url 'register' %}">Sign Up</a>            
       </li> 
+      {% endif %}
       <li class="nav-item active">
         <a class="nav-link" href="#"></a>            
     </li>      
   </ul>
   </nav>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
   
     {% block content %}{% endblock %}
 

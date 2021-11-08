@@ -69,3 +69,25 @@ class OrderItem(models.Model):
 
 
 
+class WordsDiary(models.Model):
+    #word_no = models.IntegerField(primary_key = True)
+    #Not needed as django automatically adds a field to hold primary key
+    author = models.ForeignKey(User, on_delete = models.CASCADE)
+    word = models.CharField(max_length = 100)
+    meaning = models.TextField()
+    language = models.CharField(max_length = 50)
+    state = models.CharField(max_length = 50)
+
+    def __str__(self):
+        return self.word
+
+
+class TravelDiary(models.Model):
+    author = models.ForeignKey(User, on_delete = models.CASCADE)
+    title = models.CharField(max_length = 50)
+    description = models.TextField()
+    visibleToCommunity = models.BooleanField(default = True)
+    state = models.CharField(max_length = 50)
+
+    def __str__(self):
+        return self.title

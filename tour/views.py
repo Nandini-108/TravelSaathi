@@ -66,3 +66,10 @@ def processOrder(request):
         order.complete = True
         order.save()
     return JsonResponse('Processed',safe=False)
+
+
+def wordDiary(request):
+    return render(request, 'tour/wordDiary.html')
+
+def travelDiary(request):
+    return render(request, 'tour/travelDiary.html')
