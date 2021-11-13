@@ -2,7 +2,8 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-
+from django.utils.translation import gettext_lazy as _
+from django.urls import reverse
 
 # class Customer(models.Model):
 #     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
@@ -87,7 +88,19 @@ class TravelDiary(models.Model):
     title = models.CharField(max_length = 50)
     description = models.TextField()
     visibleToCommunity = models.BooleanField(default = True)
-    state = models.CharField(max_length = 50)
+
+    
+    RAJASTHAN = 'RJ'
+    GOA = 'GO'
+
+    STATE = [(RAJASTHAN, 'Rajasthan'),
+            (GOA, 'Goa'),]
+
+
+    state = models.CharField(max_length = 2, choices = STATE, default = RAJASTHAN)
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('travel_diary_detail', kwargs={'pk': self.pk})

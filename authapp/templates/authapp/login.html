@@ -3,17 +3,23 @@
 
 
 {% block extra_head %}
+<style>
+.cont{
+	margin: 30px  20% 40px 20%;
+}
+</style>
 {% endblock extra_head %}
 
+{% load crispy_forms_tags %}
 
 {% block content %} 
-	<div class="content-section">
+	<div class="content-section cont">
 		<form method='POST'>
 			{% csrf_token %}
 		
 			<fieldset class="form-group">
 				<legend class="border-bottom mb-4">Log In</legend>
-				{{ form.as_p }}
+				{{ form|crispy }}
 			</fieldset>
 
 			<div class="form-group">

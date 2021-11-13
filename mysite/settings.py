@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'tour.apps.TourConfig',
     'authapp.apps.AuthappConfig',
+    'crispy_forms',
+
 ]
 
 MIDDLEWARE = [
@@ -147,3 +149,5 @@ SITE_ID = 1
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 LOGIN_REDIRECT_URL = 'home'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

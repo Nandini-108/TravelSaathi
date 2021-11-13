@@ -1,0 +1,58 @@
+
+{% extends 'tour/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<style>
+ body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+      
+    .card {
+        box-shadow: 0 16px 48px #E3E7EB;
+    }
+
+    .head {
+    	font-family: "Roboto", sans-serif;
+        font-size: 35px;
+        text-align: center;
+        
+    }
+    .create_button{
+    	text-align: right;
+    }
+
+</style>
+{% endblock extra_head %}
+
+
+{% block content %} 
+	
+  	<div class="head">Travel Diary</div>
+
+  	{% if user.is_authenticated %}
+  	<div class="create_button">
+  		<a class='btn btn-secondary btn-sm mt-1 mb-1' href = "{% url 'travel_diary_create'%}">Create Travel Diary</a>
+ 	 </div>
+  	{% endif %}
+	{% for post in posts %}
+	{% if post.visibleToCommunity == True %}
+	<div class="card">
+		<div class="class-header">
+			<h1><a href="{% url 'travel_diary_detail' post.id %}">{{ post.title}}</a></h1>
+			<p>by {{ post.author }}</p>
+	</div>
+		
+	<div class="card-body">{{ post.description }}
+	</div>
+
+	
+	{% endif %}
+	{% endfor %}
+
+{% endblock content %}
+
+
+<!--<a href="{% url 'travel_diary_detail' travel_diary.id %}">-->

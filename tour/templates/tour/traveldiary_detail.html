@@ -1,0 +1,45 @@
+
+{% extends 'tour/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<style>
+ body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+    }
+      
+    .card {
+        box-shadow: 0 16px 48px #E3E7EB;
+    }
+
+    
+
+</style>
+{% endblock extra_head %}
+
+
+{% block content %} 
+  
+	
+
+	<div class="card">
+		<div class="class-header">
+			<h1>{{ object.title }}</h1>
+			<p>by {{ object.author }}</p>
+
+			{% if object.author == user %}
+		 <a class='btn btn-secondary btn-sm mt-1 mb-1' href = "{% url 'travel_diary_update' object.id %}">Update</a>
+		 <a class='btn btn-danger btn-sm mt-1 mb-1' href = "{% url 'travel_diary_delete' object.id %}">Delete</a>
+		{% endif %}
+	</div>
+	
+
+	<div class="card-body">{{ object.description }}
+	</div>
+
+	
+
+
+{% endblock content %}
